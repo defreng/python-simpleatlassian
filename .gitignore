@@ -2,4 +2,4 @@
 venv/
 dist/
 build/
-simplejira.egg-info/
+simpleatlassian.egg-info/

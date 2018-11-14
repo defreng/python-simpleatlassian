@@ -1,12 +1,12 @@
-# python-simplejira
-The most basic JIRA REST client
+# python-simpleatlassian
+The most simple, and most powerful Atlassian (JIRA) Python API
 
 ## Installation
-`pip install simplejira`
+`pip install simpleatlassian`
 
 ## Usage
 ```python
-from simplejira import JIRA
+from simpleatlassian import JIRA
 
 # Make a connection with basic auth
 j = JIRA(

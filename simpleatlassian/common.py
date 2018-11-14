@@ -1,10 +1,11 @@
+import urllib
+
 import requests
-import urllib.parse
 
 
-class JIRA:
+class Atlassian:
     def __init__(self, base_url, username=None, password=None, extra_headers=None, verify=True):
-        self.jira_page_size = 50
+        self.page_size = 50
         self.base_url = base_url
 
         self.session = requests.Session()
@@ -33,23 +34,3 @@ class JIRA:
 
     def post_files(self, url, files, *kargs, **kwargs):
         return self._request('POST', url, files=files, *kargs, **kwargs)
-
-    def get_all(self, url, max=None, params=None, resultfield='values', *kargs, **kwargs):
-        limit = self.jira_page_size
-        offset = 0
-        if params is None:
-            params = {}
-
-        while True:
-            params.update({'maxResults': limit, 'startAt': offset})
-            d = self.get(url, *kargs, params=params, **kwargs)
-
-            if d is None:
-                return
-
-            for value in d[resultfield]:
-                yield value
-            offset += len(d[resultfield])
-
-            if d.get('isLast', False) or offset >= d.get('total', 1e8) or (max is not None and offset >= max):
-                return
